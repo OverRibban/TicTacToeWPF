@@ -83,7 +83,7 @@
             <Button x:Name="button1_Copy" Content="RESTART" HorizontalAlignment="Left" Margin="437,0,0,0" VerticalAlignment="Top" Width="100" Height="47" BorderBrush="{x:Null}" Background="#FFE74C3C" Foreground="White" FontFamily="Abel" FontSize="20" Click="Button1_Click" Style="{StaticResource Flat_Button}" RenderTransformOrigin="-0.14,0.596"/>
         </Grid>
         <Label x:Name="label" Content="CURRENT PLAYER&#xD;&#xA;" HorizontalAlignment="Right" Margin="0,82,40,0" VerticalAlignment="Top" FontSize="24" FontFamily="Abel" Height="46" Grid.Row="1"/>
-        <Label x:Name="label_Copy" Content="Choose a slot!" HorizontalAlignment="Right" Margin="0,140,55,0" VerticalAlignment="Top" FontSize="24" FontFamily="Abel" Height="52" AutomationProperties.Name="TimeLeftLabel" Grid.Row="2"/>
+        <Label x:Name="TimeLeftLabel" Content="Choose a slot!" HorizontalAlignment="Right" Margin="0,140,55,0" VerticalAlignment="Top" FontSize="24" FontFamily="Abel" Height="52" AutomationProperties.Name="TimeLeftLabel" Grid.Row="2"/>
         <Button x:Name="CurrentPlayerIcon" Content="" HorizontalAlignment="Right" Margin="0,128,25,114" Width="200" Background="{x:Null}" BorderBrush="Black" FontSize="72" FontWeight="Bold" Grid.RowSpan="2" Grid.Row="1"/>
 
     </Grid>

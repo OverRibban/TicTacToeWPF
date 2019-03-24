@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +24,8 @@ namespace WpfApp1
         static List<String> gameBoard = new List<String>(); //Initialize list as 3x3 board in order to right and down.
         static int currentPlayer = 0; // Initialize variable for deciding starting player
         static List<String> gameButtons = new List<String>();
+        static int Time = 5;
+        static DispatcherTimer timer = new DispatcherTimer();
         public MainWindow()
         {
             InitializeComponent();
@@ -38,6 +41,8 @@ namespace WpfApp1
             // Randomly select integer 1 or 2. 
             Random rand = new Random();
             currentPlayer = rand.Next(0, 2);
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Interval = TimeSpan.FromMilliseconds(1000);
             ClearBoard();
 
         }
@@ -187,11 +192,21 @@ namespace WpfApp1
         }
         private void ButtonClick(object sender, RoutedEventArgs e)
         {
+            timer.Start();
             // Use button as object in further functions
             Button b = (sender as Button);
             // Get the button's tag and store it in a variable
             int buttonTag = int.Parse(b.Tag.ToString());
             DecidePlayerTurn(buttonTag, b);
+        }
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            Time--;
+            TimeLeftLabel.Content = Time.ToString();
+            if (Time <= 0)
+            {
+                MessageBox.Show("HELLLOOOOOOO");
+            }
         }
         // Display manual for the player
         private void HelpButton(object sender, RoutedEventArgs e)
