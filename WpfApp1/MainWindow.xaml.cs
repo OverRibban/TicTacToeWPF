@@ -24,8 +24,9 @@ namespace WpfApp1
         static List<String> gameBoard = new List<String>(); //Initialize list as 3x3 board in order to right and down.
         static int currentPlayer = 0; // Initialize variable for deciding starting player
         static List<String> gameButtons = new List<String>();
-        static int Time = 5;
-        static DispatcherTimer timer = new DispatcherTimer();
+        static string Player1 = "X";
+        static string Player2 = "O";
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -41,8 +42,6 @@ namespace WpfApp1
             // Randomly select integer 1 or 2. 
             Random rand = new Random();
             currentPlayer = rand.Next(0, 2);
-            timer.Tick += new EventHandler(timer_Tick);
-            timer.Interval = TimeSpan.FromMilliseconds(1000);
             ClearBoard();
 
         }
@@ -54,18 +53,21 @@ namespace WpfApp1
             for (int i = 0; i < 10; i++)
             {
                 gameBoard.Add((i.ToString()));
+                {
+
+                }
                 // Null every form that has a tag to reset board buttons
             }
             // Change current player image to their corresponding player
             if (currentPlayer % 2 != 0)
             {
                 CurrentPlayerIcon.Foreground = new SolidColorBrush(Color.FromRgb(247, 54, 54));
-                CurrentPlayerIcon.Content = "X";
+                CurrentPlayerIcon.Content = Player1;
             }
             else
             {
                 CurrentPlayerIcon.Foreground = new SolidColorBrush(Color.FromRgb(101, 162, 247));
-                CurrentPlayerIcon.Content = "O";
+                CurrentPlayerIcon.Content = Player2;
             }
         }
         private void MatchResultInput(string CurrentWinner)
@@ -99,13 +101,13 @@ namespace WpfApp1
                 {
                     CheckBoard("O", tag, b);
                     CurrentPlayerIcon.Foreground = new SolidColorBrush(Color.FromRgb(247, 54, 54));
-                    CurrentPlayerIcon.Content = "X";
+                    CurrentPlayerIcon.Content = Player1;
                 }
                 else
                 {
                     CheckBoard("X", tag, b);
                     CurrentPlayerIcon.Foreground = new SolidColorBrush(Color.FromRgb(101, 162, 247));
-                    CurrentPlayerIcon.Content = "O";
+                    CurrentPlayerIcon.Content = Player2;
                 }
             }
             else
@@ -118,15 +120,15 @@ namespace WpfApp1
             // Change button's index in board array to the current player
             gameBoard[tag] = v;
             // If player is O or X
-            if (v == "O")
+            if (v == "X")
             {
-                b.Foreground = new SolidColorBrush(Color.FromRgb(101, 162, 247));
-                b.Content = "O";
+                b.Foreground = new SolidColorBrush(Color.FromRgb(247, 54, 54));
+                b.Content = Player1;
             }
             else
             {
-                b.Foreground = new SolidColorBrush(Color.FromRgb(247, 54, 54));
-                b.Content = "X";
+                b.Foreground = new SolidColorBrush(Color.FromRgb(101, 162, 247));
+                b.Content = Player2;
             }
             // Check various combinations horizontally and vertically to see if a player achived 3 in a row
             for (int i = 0; i < 3; i++)
@@ -185,33 +187,47 @@ namespace WpfApp1
         {
 
         }
-
-        private void Button1_Click(object sender, RoutedEventArgs e)
-        {
-            ClearBoard();
-        }
         private void ButtonClick(object sender, RoutedEventArgs e)
         {
-            timer.Start();
             // Use button as object in further functions
             Button b = (sender as Button);
             // Get the button's tag and store it in a variable
             int buttonTag = int.Parse(b.Tag.ToString());
             DecidePlayerTurn(buttonTag, b);
         }
-        private void timer_Tick(object sender, EventArgs e)
-        {
-            Time--;
-            TimeLeftLabel.Content = Time.ToString();
-            if (Time <= 0)
-            {
-                MessageBox.Show("HELLLOOOOOOO");
-            }
-        }
         // Display manual for the player
         private void HelpButton(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Rules\n\n1. The board/playing area is a grid that is 3 squares wide and 3 squares tall. \n2. There are two players, 'X' or 'O', and you will need to assign yourself to one of them. \n3. The player who is first to get 3 of their own marks in a row in a diagional, horizontal or vertical order will win. \n4. If all the slots are taken on the board then the game will result in a draw. \n\nHow to win? \n\nYour goal is to get 3 marks in a row, when you first set out your first mark you will then need to look ahead and make decisions that will benefit you in the future. This would for example be that if you as a player places a mark across the board that might give the incentive of the other player to block your path. The trick is to have the player not knowing what your next motive will be after you have placed your first mark.");
+        }
+
+
+        private void TextBox_TextInput(object sender, TextChangedEventArgs e)
+        {
+            TextBox b = (sender as TextBox);
+            if (b.Name == "Player1Textbox")
+            {
+                Player1 = Player1Textbox.Text;
+            }
+            else
+            {
+                Player2 = Player2Textbox.Text;
+            }
+            if (currentPlayer % 2 != 0)
+            {
+                CurrentPlayerIcon.Foreground = new SolidColorBrush(Color.FromRgb(247, 54, 54));
+                CurrentPlayerIcon.Content = Player1;
+            }
+            else
+            {
+                CurrentPlayerIcon.Foreground = new SolidColorBrush(Color.FromRgb(101, 162, 247));
+                CurrentPlayerIcon.Content = Player2;
+            }
+        }
+
+        private void Button1_Copy_Click(object sender, RoutedEventArgs e)
+        {
+            ClearBoard();
         }
     }
 }
