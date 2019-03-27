@@ -23,7 +23,7 @@ namespace WpfApp1
     {
         static List<String> gameBoard = new List<String>(); //Initialize list as 3x3 board in order to right and down.
         static int currentPlayer = 0; // Initialize variable for deciding starting player
-        static List<String> gameButtons = new List<String>();
+        static List<object> gameButtons = new List<object>();
         static string Player1 = "X";
         static string Player2 = "O";
         
@@ -120,6 +120,7 @@ namespace WpfApp1
             // Change button's index in board array to the current player
             gameBoard[tag] = v;
             // If player is O or X
+            b.FontSize = 70.0;
             if (v == "X")
             {
                 b.Foreground = new SolidColorBrush(Color.FromRgb(247, 54, 54));
