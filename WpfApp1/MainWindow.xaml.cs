@@ -23,22 +23,21 @@ namespace WpfApp1
     {
         static List<String> gameBoard = new List<String>(); //Initialize list as 3x3 board in order to right and down.
         static int currentPlayer = 0; // Initialize variable for deciding starting player
-        static List<object> gameButtons = new List<object>();
         static string Player1 = "X";
         static string Player2 = "O";
-        
+        static List<Button> GameButtons = new List<Button>();
         public MainWindow()
         {
             InitializeComponent();
-            buttonPlay0.Tag = "0";
-            buttonPlay1.Tag = "1";
-            buttonPlay2.Tag = "2";
-            buttonPlay3.Tag = "3";
-            buttonPlay4.Tag = "4";
-            buttonPlay5.Tag = "5";
-            buttonPlay6.Tag = "6";
-            buttonPlay7.Tag = "7";
-            buttonPlay8.Tag = "8";
+            GameButtons.AddRange(new List<Button>
+            {
+                buttonPlay0, buttonPlay1, buttonPlay2, buttonPlay3, buttonPlay4, buttonPlay5, buttonPlay6, buttonPlay7, buttonPlay8
+
+            });
+            for (int i = 0; i < 9; i++)
+            {
+                GameButtons[i].Tag = i.ToString();
+            }
             // Randomly select integer 1 or 2. 
             Random rand = new Random();
             currentPlayer = rand.Next(0, 2);
@@ -57,6 +56,12 @@ namespace WpfApp1
 
                 }
                 // Null every form that has a tag to reset board buttons
+                for (int j = 0; j < 9; j++)
+                {
+                    GameButtons[j].FontSize = 20.0;
+                    GameButtons[j].Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF05C46B"));
+                    GameButtons[j].Content = ("_" + j);
+                }
             }
             // Change current player image to their corresponding player
             if (currentPlayer % 2 != 0)
@@ -225,8 +230,7 @@ namespace WpfApp1
                 CurrentPlayerIcon.Content = Player2;
             }
         }
-
-        private void Button1_Copy_Click(object sender, RoutedEventArgs e)
+        private void Button1_Copy_Click_1(object sender, RoutedEventArgs e)
         {
             ClearBoard();
         }

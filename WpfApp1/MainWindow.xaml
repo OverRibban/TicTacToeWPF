@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="Tic Tac Toe" Height="480" Width="650">
+        Title="Tic Tac Toe" Height="480" Width="650" ResizeMode="CanMinimize">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -68,25 +68,30 @@
             <RowDefinition Height="4*"/>
             <RowDefinition Height="149*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="buttonPlay0" Content="_1" HorizontalAlignment="Left" Margin="10,43,0,0" VerticalAlignment="Top" Width="125" Height="125" Click="ButtonClick" Foreground="#FF05C46B" Background="{x:Null}" FontFamily="Calibri" Grid.Row="1" AutomationProperties.AccessKey="1" FontSize="20" />
-        <Button x:Name="buttonPlay1" Content="_2" HorizontalAlignment="Left" Margin="140,43,0,0" VerticalAlignment="Top" Width="125" Height="125" Click="ButtonClick" FontFamily="Calibri" Background="{x:Null}" Foreground="#FF05C46B" Grid.Row="1" FontSize="20"/>
-        <Button x:Name="buttonPlay2" Content="_3" HorizontalAlignment="Left" Margin="270,43,0,0" VerticalAlignment="Top" Width="125" Height="125" Click="ButtonClick" Foreground="#FF05C46B" Background="{x:Null}" FontFamily="Calibri" Grid.Row="1" FontSize="20"/>
-        <Button x:Name="buttonPlay3" Content="_4" HorizontalAlignment="Left" Margin="10,173,0,0" VerticalAlignment="Top" Width="125" Height="125" Click="ButtonClick" Foreground="#FF05C46B" Background="{x:Null}" FontFamily="Calibri" Grid.Row="1" FontSize="20"/>
-        <Button x:Name="buttonPlay4" Content="_5" HorizontalAlignment="Left" Margin="140,173,0,0" VerticalAlignment="Top" Width="125" Height="125" Click="ButtonClick" Background="{x:Null}" Foreground="#FF05C46B" FontFamily="Calibri" Grid.Row="1" FontSize="20"/>
-        <Button x:Name="buttonPlay5" Content="_6" HorizontalAlignment="Left" Margin="270,173,0,0" VerticalAlignment="Top" Width="125" Height="125" Click="ButtonClick" Background="{x:Null}" Foreground="#FF05C46B" FontFamily="Calibri" Grid.Row="1" FontSize="20"/>
-        <Button x:Name="buttonPlay6" Content="_7" HorizontalAlignment="Left" Margin="10,303,0,0" VerticalAlignment="Top" Width="125" Height="125" Click="ButtonClick" Foreground="#FF05C46B" Background="{x:Null}" FontFamily="Calibri" Grid.Row="1" FontSize="20"/>
-        <Button x:Name="buttonPlay7" Content="_8" HorizontalAlignment="Left" Margin="140,303,0,0" VerticalAlignment="Top" Width="125" Height="125" Click="ButtonClick" Background="{x:Null}" Foreground="#FF05C46B" FontFamily="Calibri" Grid.Row="1" FontSize="20"/>
-        <Button x:Name="buttonPlay8" Content="_9" HorizontalAlignment="Left" Margin="270,303,0,0" VerticalAlignment="Top" Width="125" Height="125" Click="ButtonClick" Background="{x:Null}" Foreground="#FF05C46B" FontFamily="Calibri" Grid.Row="1" FontSize="20"/>
+        <Button x:Name="buttonPlay0" Content="_1" HorizontalAlignment="Left" Margin="10,43,0,0" VerticalAlignment="Top" Width="125" Height="125" Click="ButtonClick" Foreground="#FF05C46B" Background="{x:Null}" FontFamily="Calibri" Grid.Row="1" AutomationProperties.AccessKey="1" FontSize="20" FontWeight="Bold" />
+        <Button x:Name="buttonPlay1" Content="_2" HorizontalAlignment="Left" Margin="140,43,0,0" VerticalAlignment="Top" Width="125" Height="125" Click="ButtonClick" FontFamily="Calibri" Background="{x:Null}" Foreground="#FF05C46B" Grid.Row="1" FontSize="20" FontWeight="Bold"/>
+        <Button x:Name="buttonPlay2" Content="_3" HorizontalAlignment="Left" Margin="270,43,0,0" VerticalAlignment="Top" Width="125" Height="125" Click="ButtonClick" Foreground="#FF05C46B" Background="{x:Null}" FontFamily="Calibri" Grid.Row="1" FontSize="20" FontWeight="Bold"/>
+        <Button x:Name="buttonPlay3" Content="_4" HorizontalAlignment="Left" Margin="10,173,0,0" VerticalAlignment="Top" Width="125" Height="125" Click="ButtonClick" Foreground="#FF05C46B" Background="{x:Null}" FontFamily="Calibri" Grid.Row="1" FontSize="20" FontWeight="Bold"/>
+        <Button x:Name="buttonPlay4" Content="_5" HorizontalAlignment="Left" Margin="140,173,0,0" VerticalAlignment="Top" Width="125" Height="125" Click="ButtonClick" Background="{x:Null}" Foreground="#FF05C46B" FontFamily="Calibri" Grid.Row="1" FontSize="20" FontWeight="Bold"/>
+        <Button x:Name="buttonPlay5" Content="_6" HorizontalAlignment="Left" Margin="270,173,0,0" VerticalAlignment="Top" Width="125" Height="125" Click="ButtonClick" Background="{x:Null}" Foreground="#FF05C46B" FontFamily="Calibri" Grid.Row="1" FontSize="20" FontWeight="Bold"/>
+        <Button x:Name="buttonPlay6" Content="_7" HorizontalAlignment="Left" Margin="10,303,0,0" VerticalAlignment="Top" Width="125" Height="125" Click="ButtonClick" Foreground="#FF05C46B" Background="{x:Null}" FontFamily="Calibri" Grid.Row="1" FontSize="20" FontWeight="Bold"/>
+        <Button x:Name="buttonPlay7" Content="_8" HorizontalAlignment="Left" Margin="140,303,0,0" VerticalAlignment="Top" Width="125" Height="125" Click="ButtonClick" Background="{x:Null}" Foreground="#FF05C46B" FontFamily="Calibri" Grid.Row="1" FontSize="20" FontWeight="Bold"/>
+        <Button x:Name="buttonPlay8" Content="_9" HorizontalAlignment="Left" Margin="270,303,0,0" VerticalAlignment="Top" Width="125" Height="125" Click="ButtonClick" Background="{x:Null}" Foreground="#FF05C46B" FontFamily="Calibri" Grid.Row="1" FontSize="20" FontWeight="Bold"/>
         <Grid HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Width="642" Background="#FFF95952" Grid.RowSpan="2" Margin="0">
-            <Button x:Name="button1" Content="HELP" HorizontalAlignment="Left" Margin="537,0,0,0" VerticalAlignment="Top" Width="100" Height="45" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="White" FontFamily="Calibri" FontSize="20" Click="HelpButton" Style="{StaticResource Flat_Button}" RenderTransformOrigin="0.58,0.553"/>
-            <Button x:Name="button1_Copy" Content="RESTART" HorizontalAlignment="Left" Margin="432,0,0,0" Width="100" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="White" FontFamily="Calibri" FontSize="20" Style="{StaticResource Flat_Button}" RenderTransformOrigin="-0.14,0.596" Click="Button1_Copy_Click"/>
+            <Button x:Name="button1" Content="HELP" HorizontalAlignment="Left" Margin="537,0,0,0" VerticalAlignment="Top" Width="100" Height="47" BorderBrush="{x:Null}" Background="#FFF95952" Foreground="White" FontFamily="Abel" FontSize="20" Click="HelpButton" Style="{StaticResource Flat_Button}"/>
+            <Button x:Name="button1_Copy" Content="RESTART" HorizontalAlignment="Left" Margin="437,0,0,0" VerticalAlignment="Top" Width="100" Height="47" BorderBrush="{x:Null}" Background="#FFF95952" Foreground="White" FontFamily="Abel" FontSize="20" Style="{StaticResource Flat_Button}" RenderTransformOrigin="-0.14,0.596" Click="Button1_Copy_Click_1"/>
         </Grid>
         <Grid HorizontalAlignment="Left" Height="416" Margin="395,31,0,-10" Grid.Row="1" VerticalAlignment="Top" Width="247">
-            <Button x:Name="CurrentPlayerIcon" Content="" Margin="20,68,27,148" Background="{x:Null}" BorderBrush="Black" FontSize="72" FontWeight="Bold" Height="200"/>
-            <Label x:Name="label" Content="CURRENT PLAYER" HorizontalAlignment="Right" Margin="0,22,24,0" VerticalAlignment="Top" FontSize="22" FontFamily="Calibri" Height="46" Width="203"/>
-            <Label x:Name="TimeLeftLabel" Content="Player Select" HorizontalAlignment="Right" Margin="0,283,86,0" VerticalAlignment="Top" FontSize="22" FontFamily="Calibri" Height="47" AutomationProperties.Name="TimeLeftLabel" Width="141"/>
-            <TextBox x:Name="Player1Textbox" HorizontalAlignment="Left" Height="25" Margin="20,330,0,0" Text="X" VerticalAlignment="Top" Width="200" TextChanged="TextBox_TextInput" RenderTransformOrigin="-0.228,0.478" Background="{x:Null}" BorderThickness="2" SnapsToDevicePixels="True" FontFamily="Calibri" FontSize="16"/>
-            <TextBox x:Name="Player2Textbox" HorizontalAlignment="Left" Height="25" Margin="20,360,0,0" Text="O" VerticalAlignment="Top" Width="200" TextChanged="TextBox_TextInput" Background="{x:Null}" BorderThickness="2" SnapsToDevicePixels="True" FontFamily="Calibri" FontSize="16"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="92*"/>
+                <ColumnDefinition Width="104*"/>
+                <ColumnDefinition Width="51*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="CurrentPlayerIcon" Content="" Margin="20,68,27,148" Background="{x:Null}" BorderBrush="Black" FontSize="72" FontWeight="Bold" Height="200" Grid.ColumnSpan="3" FontFamily="Calibri"/>
+            <Label x:Name="label" Content="CURRENT PLAYER" HorizontalAlignment="Right" Margin="0,22,24,0" VerticalAlignment="Top" FontSize="22" FontFamily="Calibri" Height="46" Width="203" Grid.ColumnSpan="3"/>
+            <Label x:Name="TimeLeftLabel" Content="Player Select" HorizontalAlignment="Right" Margin="0,283,35.047,0" VerticalAlignment="Top" FontSize="22" FontFamily="Calibri" Height="47" AutomationProperties.Name="TimeLeftLabel" Width="141" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="Player1Textbox" HorizontalAlignment="Left" Height="25" Margin="20,330,0,0" Text="X" VerticalAlignment="Top" Width="200" TextChanged="TextBox_TextInput" RenderTransformOrigin="-0.228,0.478" Background="{x:Null}" BorderThickness="2" SnapsToDevicePixels="True" FontFamily="Calibri" FontSize="16" Grid.ColumnSpan="3"/>
+            <TextBox x:Name="Player2Textbox" HorizontalAlignment="Left" Height="25" Margin="20,360,0,0" Text="O" VerticalAlignment="Top" Width="200" TextChanged="TextBox_TextInput" Background="{x:Null}" BorderThickness="2" SnapsToDevicePixels="True" FontFamily="Calibri" FontSize="16" Grid.ColumnSpan="3"/>
         </Grid>
 
     </Grid>
