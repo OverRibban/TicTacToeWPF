@@ -21,15 +21,16 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-        static List<String> gameBoard = new List<String>(); //Initialize list as 3x3 board in order to right and down.
-        static int currentPlayer = 0; // Initialize variable for deciding starting player
+        static List<String> GameBoard = new List<String>(); //Initialize list as 3x3 board in order to right and down.
+        static int CurrentPlayer = 0; // Initialize variable for deciding starting player.
+        // Symbols representing Player1 and Player2 in their respective variables.
         static string Player1 = "X";
-        static string Player2 = "O";
-        static List<Button> GameButtons = new List<Button>();
+        static string Player2 = "O"; //
+        static List<Button> GameButtons = new List<Button>(); //List containing every button for core game.
         public MainWindow()
         {
             InitializeComponent();
-            GameButtons.AddRange(new List<Button>
+            GameButtons.AddRange(new List<Button> //Add every button
             {
                 buttonPlay0, buttonPlay1, buttonPlay2, buttonPlay3, buttonPlay4, buttonPlay5, buttonPlay6, buttonPlay7, buttonPlay8
 
@@ -40,31 +41,39 @@ namespace WpfApp1
             }
             // Randomly select integer 1 or 2. 
             Random rand = new Random();
-            currentPlayer = rand.Next(0, 2);
+            CurrentPlayer = rand.Next(0, 2);
             ClearBoard();
 
         }
+
+        /// <summary>
+        /// Called when player manually clicks on restart button or clicks on "OK" in the DecidePlayerTurn MessageBox.
+        /// Clears the whole list and fills it with numbers from 0-8 again, clears content of all GameButtons and changes them to their default value.
+        /// </summary>
         private void ClearBoard()
         {
             // Clear whole list in case of restart
-            gameBoard.Clear();
+            GameBoard.Clear();
+            //Enables naming boxes for both players
+            Player1Textbox.IsEnabled = true;
+            Player2Textbox.IsEnabled = true;
             // Fill all indexes with numbers from 1 to 9 in ascending order, to make every index unlike each other and match their button's tag.
             for (int i = 0; i < 10; i++)
             {
-                gameBoard.Add((i.ToString()));
+                GameBoard.Add((i.ToString()));
                 {
 
                 }
-                // Null every form that has a tag to reset board buttons
+                // Reset every GameButton to enable keyboard shortcuts and redesign text to default values.
                 for (int j = 0; j < 9; j++)
                 {
                     GameButtons[j].FontSize = 20.0;
                     GameButtons[j].Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF05C46B"));
-                    GameButtons[j].Content = ("_" + j);
+                    GameButtons[j].Content = ("_" + (j+1));
                 }
             }
             // Change current player image to their corresponding player
-            if (currentPlayer % 2 != 0)
+            if (CurrentPlayer % 2 != 0)
             {
                 CurrentPlayerIcon.Foreground = new SolidColorBrush(Color.FromRgb(247, 54, 54));
                 CurrentPlayerIcon.Content = Player1;
@@ -75,8 +84,22 @@ namespace WpfApp1
                 CurrentPlayerIcon.Content = Player2;
             }
         }
+
+        /// <summary>
+        /// Called when winner MessageBox needs to be shown, in case of a win.
+        /// </summary>
+        /// <param name="CurrentWinner">Uses a GameBoard index as the winning player</param>
         private void MatchResultInput(string CurrentWinner)
         {
+           //Change player's default name to Textbox set name for game-over prompt.
+            if (CurrentWinner == "X")
+            {
+                CurrentWinner = Player1;
+            }
+            else
+            {
+                CurrentWinner = Player2;
+            }
             // Display winner and restart game if either player clicks on "OK" in the end message.
             MessageBoxResult result = MessageBox.Show("Do you want to play again?",
                                           CurrentWinner + " Won!",
@@ -87,22 +110,22 @@ namespace WpfApp1
                 ClearBoard();
             }
         }
-        private void ButtonClick(object sender, EventArgs e)
-        {
-            // Use button as object in further functions
-            Button b = (sender as Button);
-            // Get the button's tag and store it in a variable
-            int buttonTag = int.Parse(b.Tag.ToString());
-            DecidePlayerTurn(buttonTag, b);
-        }
+
+        /// <summary>
+        /// Called from ButtonClick with the button's tag and the button, used to check if button is taken
+        /// Change CurrentPlayerIcon button's content
+        /// Decide which player is making the pending decision
+        /// </summary>
+        /// <param name="tag">tag used to check if the button is taken</param>
+        /// <param name="b">b used to pass on into the function CheckBoard</param>
         private void DecidePlayerTurn(int tag, Button b)
         {
             // If button's matching index in list has not been changed
-            if (gameBoard[tag] == tag.ToString())
+            if (GameBoard[tag] == tag.ToString())
             {
                 // Switch player every turn and use random int to choose starting player in 1st game
                 // Change current player image to their corresponding player
-                if (currentPlayer % 2 == 0)
+                if (CurrentPlayer % 2 == 0)
                 {
                     CheckBoard("O", tag, b);
                     CurrentPlayerIcon.Foreground = new SolidColorBrush(Color.FromRgb(247, 54, 54));
@@ -120,10 +143,18 @@ namespace WpfApp1
                 MessageBox.Show("Taken!");
             }
         }
+
+        /// <summary>
+        /// Called from DecidePlayerTurn where checks for a win or if all slots are taken, changes the clicked button's content unlike DecidePlayerTurn's function to change currenticon player.
+        /// Ups the CurrentPlayer variable by one to change player.
+        /// </summary>
+        /// <param name="v">v used as player making the pending decision</param>
+        /// <param name="tag">tag used as number to change GameBoard index to player's decision</param>
+        /// <param name="b">button used to it's content, fontsize and color.</param>
         private void CheckBoard(string v, int tag, Button b)
         {
             // Change button's index in board array to the current player
-            gameBoard[tag] = v;
+            GameBoard[tag] = v;
             // If player is O or X
             b.FontSize = 70.0;
             if (v == "X")
@@ -139,37 +170,37 @@ namespace WpfApp1
             // Check various combinations horizontally and vertically to see if a player achived 3 in a row
             for (int i = 0; i < 3; i++)
             {
-                if (gameBoard[0 + (3 * i)] == gameBoard[1 + (3 * i)] && gameBoard[1 + (3 * i)] == gameBoard[2 + (3 * i)])
+                if (GameBoard[0 + (3 * i)] == GameBoard[1 + (3 * i)] && GameBoard[1 + (3 * i)] == GameBoard[2 + (3 * i)])
                 {
-                    MatchResultInput(gameBoard[0 + (3 * i)]);
+                    MatchResultInput(GameBoard[0 + (3 * i)]);
                 }
-                if (gameBoard[0 + (1 * i)] == gameBoard[3 + (1 * i)] && gameBoard[3 + (1 * i)] == gameBoard[6 + (1 * i)])
+                if (GameBoard[0 + (1 * i)] == GameBoard[3 + (1 * i)] && GameBoard[3 + (1 * i)] == GameBoard[6 + (1 * i)])
                 {
-                    MatchResultInput(gameBoard[3 + (1 * i)]);
+                    MatchResultInput(GameBoard[3 + (1 * i)]);
                 }
             }
             // Check both diagonal combinations to see if a player achived 3 in a row
-            if (gameBoard[0] == gameBoard[4] && gameBoard[4] == gameBoard[8])
+            if (GameBoard[0] == GameBoard[4] && GameBoard[4] == GameBoard[8])
             {
-                MatchResultInput(gameBoard[0]);
+                MatchResultInput(GameBoard[0]);
             }
-            if (gameBoard[2] == gameBoard[4] && gameBoard[4] == gameBoard[6])
+            if (GameBoard[2] == GameBoard[4] && GameBoard[4] == GameBoard[6])
             {
-                MatchResultInput(gameBoard[2]);
+                MatchResultInput(GameBoard[2]);
             }
             // Up the variable by one to change player next turn
-            currentPlayer++;
+            CurrentPlayer++;
             // Check if all slots are taken
             if (
-                    (gameBoard[0] == "X" || gameBoard[0] == "O")
-                && (gameBoard[1] == "X" || gameBoard[1] == "O")
-                && (gameBoard[2] == "X" || gameBoard[2] == "O")
-                && (gameBoard[3] == "X" || gameBoard[3] == "O")
-                && (gameBoard[4] == "X" || gameBoard[4] == "O")
-                && (gameBoard[5] == "X" || gameBoard[5] == "O")
-                && (gameBoard[6] == "X" || gameBoard[6] == "O")
-                && (gameBoard[7] == "X" || gameBoard[7] == "O")
-                && (gameBoard[8] == "X" || gameBoard[8] == "O")
+                    (GameBoard[0] == "X" || GameBoard[0] == "O")
+                && (GameBoard[1] == "X" || GameBoard[1] == "O")
+                && (GameBoard[2] == "X" || GameBoard[2] == "O")
+                && (GameBoard[3] == "X" || GameBoard[3] == "O")
+                && (GameBoard[4] == "X" || GameBoard[4] == "O")
+                && (GameBoard[5] == "X" || GameBoard[5] == "O")
+                && (GameBoard[6] == "X" || GameBoard[6] == "O")
+                && (GameBoard[7] == "X" || GameBoard[7] == "O")
+                && (GameBoard[8] == "X" || GameBoard[8] == "O")
                 )
             {
                 // Restarts game if either player clicks on "OK" in end message
@@ -183,43 +214,55 @@ namespace WpfApp1
                 }
             }
         }
-        // Restarts the game if the player manually clicks on the restart button
-        private void button11_Click(object sender, EventArgs e)
-        {
-            ClearBoard();
-        }
 
-        private void TimeLeftLabel_Click(object sender, EventArgs e)
-        {
-
-        }
+        /// <summary>
+        /// Function is called when 
+        /// </summary>
+        /// <param name="sender">sender as button is used to change it's content</param>
+        /// <param name="e">e not used</param>
         private void ButtonClick(object sender, RoutedEventArgs e)
         {
+            //Disables naming boxes if the game has started.
+            Player1Textbox.IsEnabled = false;
+            Player2Textbox.IsEnabled = false;
             // Use button as object in further functions
             Button b = (sender as Button);
             // Get the button's tag and store it in a variable
             int buttonTag = int.Parse(b.Tag.ToString());
             DecidePlayerTurn(buttonTag, b);
         }
-        // Display manual for the player
+
+        /// <summary>
+        /// Function is called when user clicks on "help" button where it opens a messagebox to the user.
+        /// </summary>
+        /// <param name="sender">sender not used</param>
+        /// <param name="e">e not used</param>
         private void HelpButton(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Rules\n\n1. The board/playing area is a grid that is 3 squares wide and 3 squares tall. \n2. There are two players, 'X' or 'O', and you will need to assign yourself to one of them. \n3. The player who is first to get 3 of their own marks in a row in a diagional, horizontal or vertical order will win. \n4. If all the slots are taken on the board then the game will result in a draw. \n\nHow to win? \n\nYour goal is to get 3 marks in a row, when you first set out your first mark you will then need to look ahead and make decisions that will benefit you in the future. This would for example be that if you as a player places a mark across the board that might give the incentive of the other player to block your path. The trick is to have the player not knowing what your next motive will be after you have placed your first mark.");
         }
 
-
-        private void TextBox_TextInput(object sender, TextChangedEventArgs e)
+        /// <summary>
+        /// Function is called when text changes in the Textbox containing the player's symbol.
+        /// </summary>
+        /// <param name="sender">Textbox</param>
+        /// <param name="e">e not used</param>
+        private void ChangeNameInput(object sender, TextChangedEventArgs e)
         {
-            TextBox b = (sender as TextBox);
-            if (b.Name == "Player1Textbox")
+            TextBox t = (sender as TextBox);
+            //If selected Textbox belongs to player1 or player2.
+            if (t.Name == "Player1Textbox")
             {
+                //Make content in textbox into player's symbol.
                 Player1 = Player1Textbox.Text;
             }
             else
             {
+                //Make content in textbox into player's symbol.
                 Player2 = Player2Textbox.Text;
             }
-            if (currentPlayer % 2 != 0)
+            //Change button containing current player to the correct symbol and color.
+            if (CurrentPlayer % 2 != 0)
             {
                 CurrentPlayerIcon.Foreground = new SolidColorBrush(Color.FromRgb(247, 54, 54));
                 CurrentPlayerIcon.Content = Player1;
@@ -230,8 +273,15 @@ namespace WpfApp1
                 CurrentPlayerIcon.Content = Player2;
             }
         }
-        private void Button1_Copy_Click_1(object sender, RoutedEventArgs e)
+
+        /// <summary>
+        /// Called when user clicks on the Restart Button
+        /// </summary>
+        /// <param name="sender">sender is not used</param>
+        /// <param name="e">e is not used</param>
+        private void RestartButton(object sender, RoutedEventArgs e)
         {
+            //Restarts the game if the player manually clicks on the restart button
             ClearBoard();
         }
     }
